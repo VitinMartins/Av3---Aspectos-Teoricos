@@ -1,0 +1,29 @@
+terminal java_cup.runtime.Symbol Keyword;
+terminal java_cup.runtime.Symbol Identificador;
+terminal java_cup.runtime.Symbol NumeroInteiro;
+terminal java_cup.runtime.Symbol NumeroFloat;
+terminal java_cup.runtime.Symbol Operador;
+terminal java_cup.runtime.Symbol Delimitador;
+
+non terminal Program;
+non terminal StatementList;
+non terminal Statement;
+non terminal Expression;
+non terminal Assignment;
+
+start with Program;
+
+Program ::= StatementList;
+
+StatementList ::= Statement StatementList
+               | Statement;
+
+Statement ::= Keyword Identificador Delimitador 
+            | Identificador Operador Identificador Delimitador 
+            | Assignment;
+
+Expression ::= NumeroInteiro Operador NumeroInteiro
+            | NumeroFloat Operador NumeroFloat
+            | Identificador Operador Identificador;
+            
+Assignment ::= Identificador "=" Expression Delimitador;
