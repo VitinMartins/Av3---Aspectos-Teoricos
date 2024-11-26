@@ -1,14 +1,15 @@
 %%
 
-%standalone
 %unicode
 %public
+%standalone
 
+// Definição de expressões regulares
 Keyword = (if|else|while|return|for|int|float|boolean|char|void)
 Identificador = [a-zA-Z_][a-zA-Z0-9_]* 
 NumeroInteiro = [0-9]+
 NumeroFloat = [0-9]*"."[0-9]+
-Operador = (\+|\-|\*|\/|\=\=|\!\=|\<|\>|\+\+|\-\-|\=)
+Operador = (\+|\-|\*|\/|\=\=|\!\=|\<|\>|\+\+|\-\-|\=\=)
 Delimitador = (\;|\{|\}|\(|\)|\,|\.)
 ComentarioLinha = "//[^\n]*"
 ComentarioBloco = "/\\*([^\*]|(\*+[^\/]))*\\*+/"
@@ -16,28 +17,29 @@ ComentarioBloco = "/\\*([^\*]|(\*+[^\/]))*\\*+/"
 
 %%
 
+// Regras de ação
 {Keyword} {
-    return new java_cup.runtime.Symbol(sym.Keyword, yytext());
+    System.out.println("> Encontrei uma keyword: " + yytext());
 }
 
 {Identificador} {
-    return new java_cup.runtime.Symbol(sym.Identificador, yytext());
+    System.out.println("> Encontrei um identificador: " + yytext());
 }
 
 {NumeroInteiro} {
-    return new java_cup.runtime.Symbol(sym.NumeroInteiro, yytext());
+    System.out.println("> Encontrei um número inteiro: " + yytext());
 }
 
 {NumeroFloat} {
-    return new java_cup.runtime.Symbol(sym.NumeroFloat, yytext());
+    System.out.println("> Encontrei um número flutuante: " + yytext());
 }
 
 {Operador} {
-    return new java_cup.runtime.Symbol(sym.Operador, yytext());
+    System.out.println("> Encontrei um operador: " + yytext());
 }
 
 {Delimitador} {
-    return new java_cup.runtime.Symbol(sym.Delimitador, yytext());
+    System.out.println("> Encontrei um delimitador: " + yytext());
 }
 
 {ComentarioLinha} {
@@ -48,6 +50,4 @@ ComentarioBloco = "/\\*([^\*]|(\*+[^\/]))*\\*+/"
     // Ignora o comentário de bloco
 }
 
-.|\n { /* Ignora qualquer outro caractere */ }
-
-%%
+[^] { /* Ignora qualquer outro caractere */ }
